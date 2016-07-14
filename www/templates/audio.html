@@ -1,0 +1,45 @@
+<ion-view hide-back-button="true" view-title="Audio Files">
+  <ion-content class="padding-7 margin-top-50">
+
+    <!--Videos Categories-->
+    <div>
+      <fieldset class="border-orange">
+        <legend class="background-orange color-white font-size-15 border-orange text-center">
+          Audio Categories
+        </legend>
+        <div class="margin-top-5">
+          <a menu-close class="item menu-icon-color border-transparent categories-item" ng-repeat="category in audioCategories" ng-click="goAudioByCategory(category)">
+            <span class="color-light-black font-size-14">{{category}}</span>
+          </a>
+        </div>
+      </fieldset>
+    </div>
+
+    <!--Recently Added Audio-->
+    <div class="margin-top-10 padding-bottom-10">
+      <fieldset class="border-orange">
+        <legend class="background-orange color-white font-size-15 border-orange text-center">
+          Recently Added Audio
+        </legend>
+        <div class="margin-top-5">
+        <div class="margin-bottom-10" ng-repeat="data in recentAudio">
+          <div class="card">
+            <div ng-click="goAudioDetail()">
+              <img class="full-image" src="img/audio_icon.png">
+              <div class="padding">
+                <p class="menu-icon-color p-tag-bottom-margin">I Miss You</p>
+                <p class="color-gray p-tag-bottom-margin">0:0:9</p>
+                <p class="color-gray p-tag-bottom-margin">42 views</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="text-center">
+          <button class="button button-outline see-all-button" ng-click="goSettings()">See All</button>
+        </div>
+      </fieldset>
+    </div>
+
+  </ion-content>
+</ion-view>

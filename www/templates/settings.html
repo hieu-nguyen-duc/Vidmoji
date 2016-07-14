@@ -1,15 +1,25 @@
 <ion-view hide-back-button="true" view-title="Settings">
-  <ion-content class="padding">
-    <div>
+  <!--<div class="bar bar-header item-input-inset nav-bar-style">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" class="border-transparent">
+    </label>
+    <button class="button button-clear" ng-click="hideSearchBar()">
+      Cancel
+    </button>
+  </div>-->
+  <ion-content class="padding margin-top-50">
+
+    <div class="padding-bottom-10">
       <div>
-        <p class="font-size-15 font-weight-500 color-gray">Instagram</p>
+        <p class="font-size-15 font-bold color-gray">Instagram</p>
 
         <p class="color-gray">You can build your Vidmoji collection by liking your favourite clips posted by
           @Vidmoji</p>
         <button class="button facebook-button line-min-height" ng-click="goLogin()">Authenticate Instagram</button>
       </div>
       <div style="border-bottom: 2px solid #DFDFDF;">
-        <p class="margin-top-10 color-light-gray" >Any time you like a vidmoji instagram clip,automatically add to
+        <p class="margin-top-10 color-light-gray" >Any time you like a vidmoji instagram clip, automatically add to
           my library</p>
 
         <div style="display: flex;">
@@ -45,7 +55,7 @@
         </div>
       </div>
       <div class="margin-top-10">
-        <p class="font-size-15 font-weight-500 color-gray">Device settings</p>
+        <p class="font-size-15 font-bold color-gray">Device settings</p>
 
         <!--  Radio group 1 -->
 
@@ -98,7 +108,7 @@
                        checked/>
               </div>
               <div>
-                <label for="radio5" class="radio-button-text"">Yes</label>
+                <label for="radio5" class="radio-button-text">Yes</label>
               </div>
             </div>
 
@@ -153,8 +163,15 @@
         </div>
       </div>
       <div class="text-center">
-        <button class="button facebook-button margin-top-20 line-min-height" ng-click="goHome()"><i>Skip</i><i class="ion-ios-arrow-thin-right" style="padding-left: 10px;"></i></button>
+        <a class="button icon-right ion-ios-download-outline orange-button margin-top-20" ng-click="goHome()">Save&nbsp;</a>&nbsp;&nbsp;&nbsp;
+        <a class="button icon-right ion-ios-arrow-thin-right orange-button margin-top-20" ng-click="goHome()">Skip</a>
       </div>
+
     </div>
+
+   <!-- <div>
+      <recent-comments params="{limit: 5, related:'thread'}"></recent-comments>
+      <div recent-comments params="{limit: 5, related:'thread'}"></div>
+    </div>-->
   </ion-content>
 </ion-view>

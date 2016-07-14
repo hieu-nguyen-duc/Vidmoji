@@ -1,0 +1,58 @@
+<ion-view hide-back-button="true" view-title="Photos">
+  <ion-content class="padding-7 margin-top-50">
+
+    <!--Photos Categories-->
+    <div>
+      <fieldset class="border-orange">
+        <legend class="background-orange color-white font-size-15 border-orange text-center">
+          Photos Categories
+        </legend>
+        <div class="margin-top-5">
+          <a menu-close class="item menu-icon-color border-transparent categories-item" ng-repeat="category in photoCategories" ng-click="goPhotosByCategory(category)">
+            <span class="color-light-black font-size-14">{{category}}</span>
+          </a>
+        </div>
+      </fieldset>
+    </div>
+
+    <!--Archives-->
+    <div class="margin-top-10">
+      <fieldset class="border-orange">
+        <legend class="background-orange color-white font-size-15 border-orange text-center">
+          Archives
+        </legend>
+        <div class="margin-top-5">
+          <a menu-close class="item menu-icon-color border-transparent categories-item" ng-repeat="category in Archives">
+            <span class="color-light-black font-size-14">{{category}}</span>
+          </a>
+        </div>
+      </fieldset>
+    </div>
+
+    <!--Recently Added Photos-->
+    <div class="margin-top-10 padding-bottom-10">
+      <fieldset class="border-orange">
+        <legend class="background-orange color-white font-size-15 border-orange text-center">
+          Recently Added Photos
+        </legend>
+        <div class="margin-top-5">
+        <div class="margin-bottom-10" ng-repeat="data in recentPhotos">
+          <div class="card">
+            <div ng-click="goPhotoDetail()">
+              <img class="full-image" src="img/dummy_photo.png">
+              <div class="padding">
+                <p class="menu-icon-color p-tag-bottom-margin">Good Morning</p>
+                <p class="color-gray p-tag-bottom-margin">47 views</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="text-center">
+          <button class="button button-outline see-all-button" ng-click="goSettings()">See All</button>
+        </div>
+      </fieldset>
+    </div>
+  </ion-content>
+
+</ion-view>

@@ -1,10 +1,190 @@
 angular.module('starter.services', [])
+  .factory('MapLoadingScreen', function($ionicLoading) {
+    return {
+      loading: null,
+      show: function() {
+        $ionicLoading.show({
+          content: '',
+          /*
+                            template: '<div class="row" style="color: #55B750;"><div><ion-spinner icon="android" style="color: #55B750!important;"></ion-spinner></div><div style="padding-left: 10px;font-weight: 500;vertical-align: middle;padding-top: 5px;font-size: 12px;">Authenticating...</div></div>',
+          */
+          template: '<div><img src="img/giphy.gif" width="200px" height="200px"></div>',
+          animation: 'fade-in',
+          noBackdrop: true,
+          showBackdrop: false,
+          maxWidth: 400,
+          maxHeight: 100,
+          showDelay: 200
+        });
+      },
+      hide: function() {
+        $ionicLoading.hide();
+      }
+    }
+  })
 
-.service('CommonService', [function($http) {
-  $http.post('/someUrl', data, config).then(function(res) {
+.factory('LoadingScreen', function($ionicLoading) {
+  return {
+    loading: null,
+    show: function() {
+      $ionicLoading.show({
+        content: '',
+        /*
+         template: '<div class="row" style="color: #55B750;"><div><ion-spinner icon="android" style="color: #55B750!important;"></ion-spinner></div><div style="padding-left: 10px;font-weight: 500;vertical-align: middle;padding-top: 5px;font-size: 12px;">Authenticating...</div></div>',
+         */
+        template: '<div class="loading-bacground"><ion-spinner icon="android"></ion-spinner></div>',
+        animation: 'fade-in',
+        noBackdrop: true,
+        showBackdrop: false,
+        maxWidth: 400,
+        maxHeight: 100,
+        showDelay: 200
+      });
+    },
+    hide: function() {
+      $ionicLoading.hide();
+    }
+  }
+})
 
-  }, function(error) {});
-}])
+.filter('parseUrl', function() {
+  var //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim,
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim,
+    //Change email addresses to mailto:: links.
+    replacePattern3 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+  return function(text, target, otherProp) {
+    angular.forEach(text.match(replacePattern1), function(url) {
+      text = text.replace(replacePattern1, "<a href=\"$1\" target=\"_blank\">$1</a>");
+    });
+    angular.forEach(text.match(replacePattern2), function(url) {
+      text = text.replace(replacePattern2, "$1<a href=\"http://$2\" target=\"_blank\">$2</a>");
+    });
+    angular.forEach(text.match(replacePattern3), function(url) {
+      text = text.replace(replacePattern3, "<a href=\"mailto:$1\">$1</a>");
+    });
+
+    return text;
+  };
+})
+
+/* // Loading Screen
+.factory('LoadingScreen', function ($ionicLoading, $rootScope) {
+  return {
+    loading: null,
+    show: function (message) {
+      $rootScope.LoadingScreenClosed=false;
+      if(message==null){
+        $rootScope.msg='Loading...';
+      }
+      else{
+        $rootScope.msg=message;
+      }
+
+      $ionicLoading.show({
+        content: '',
+        template: '<div class="loadingBg"><i class="ion-plus" style="font-size: 40px;padding: 10px;"></i><div style="padding: 10px;">{{msg}}</div></div>',
+        /!* templateUrl:'templates/dashboard.html',*!/
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 400,
+        maxHeight: 100,
+        showDelay: 200
+      });
+      /!* $timeout(function () {
+       if($rootScope.LoadingScreenClosed==false){
+       $ionicLoading.hide();
+       $rootScope.popupMessage('Its taking time more than usual');
+       }
+       }, 2000);*!/
+    },
+    hide: function () {
+      $ionicLoading.hide();
+      $rootScope.LoadingScreenClosed=true;
+    }
+  }
+})*/
+
+
+.factory('HTTP', function($http, HOST, $rootScope, $ionicLoading) {
+  return {
+    get: function(url) {
+
+      return $http({
+        method: 'GET',
+        url: url
+      });
+    },
+    post: function(url, params) {
+      var promise = $http({
+        method: 'POST',
+        url: HOST + url,
+        headers: {
+          'Content-type': 'application/json'
+        },
+        data: params
+      });
+      return promise;
+    },
+    uploadUsingDevice: function(url, file, params, modal) {
+      // alert(JSON.stringify(params));
+      var options = new FileUploadOptions();
+      options.fileKey = "picture";
+      options.chunkedMode = false;
+      options.httpMethod = 'POST';
+      options.params = params;
+      options.headers = {
+        'Content-Type': undefined
+      };
+      var ft = new FileTransfer();
+      ft.upload(file, encodeURI(HOST + url), function(success) {
+        $ionicLoading.hide();
+        var str = JSON.stringify(success.response);
+        if (str.indexOf("Event uploaded successfully") != -1) {
+          $rootScope.DisplayMessage('Event uploaded successfully');
+        } else {
+          $rootScope.DisplayMessage('Something went wrong');
+        }
+        //alert(success.response);
+      }, function(err) {
+        $ionicLoading.hide();
+        $rootScope.popupMessage('Something went wrong');
+        // alert(JSON.stringify(err));
+      }, options);
+    }
+  }
+})
+
+.factory('settings', function() {
+  return {
+    noImageUrl: "img/dummy_profile_pic.png"
+  };
+})
+
+.factory('settings_events', function() {
+  return {
+    noImageUrlEvent: "img/takepic.png"
+  };
+})
+
+.directive('dir', function($compile, $parse) {
+    return {
+      restrict: 'E',
+      link: function(scope, element, attr) {
+        scope.$watch(attr.content, function() {
+          element.html($parse(attr.content)(scope));
+          $compile(element.contents())(scope);
+        }, true);
+      }
+    }
+  })
+  .service('CommonService', [function($http) {
+    $http.post('/someUrl', data, config).then(function(res) {
+
+    }, function(error) {});
+  }])
 
 .service('AlbumService', [function($http) {
 
@@ -62,7 +242,6 @@ angular.module('starter.services', [])
   }
 
 
-service.
 
   return service;
 });
