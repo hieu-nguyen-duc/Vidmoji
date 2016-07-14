@@ -1,0 +1,20 @@
+<ion-view hide-nav-bar="true">
+  <ion-content class="text-center" scroll="false">
+    <div class="background-center">
+      <div style="width: 300px;">
+        <img src="img/logo.png" style="width: 200px;">
+        <div class="list padding margin-top-30" style="padding-top: 0;">
+          <label class="item-input">
+            <input type="text" placeholder="USERNAME" class="color-white">
+          </label>
+          <label class="item-input">
+            <input type="password" placeholder="PASSWORD" class="font-size-12 color-white">
+          </label>
+          <button class="button width-100 margin-top-30 login-button" ng-click="login()">LogIn</button>
+          <button class="button width-100 margin-top-20 facebook-button" ng-click="goLogin()">Facebook</button>
+          <i class="button button-clear font-size-12 color-gray" ng-click="goSignup()">No account yet? Signin</i>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

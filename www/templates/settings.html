@@ -1,0 +1,160 @@
+<ion-view hide-back-button="true" view-title="Settings">
+  <ion-content class="padding">
+    <div>
+      <div>
+        <p class="font-size-15 font-weight-500 color-gray">Instagram</p>
+
+        <p class="color-gray">You can build your Vidmoji collection by liking your favourite clips posted by
+          @Vidmoji</p>
+        <button class="button facebook-button line-min-height" ng-click="goLogin()">Authenticate Instagram</button>
+      </div>
+      <div style="border-bottom: 2px solid #DFDFDF;">
+        <p class="margin-top-10 color-light-gray" >Any time you like a vidmoji instagram clip,automatically add to
+          my library</p>
+
+        <div style="display: flex;">
+          <div class="row" style="margin-bottom: 5px;">
+            <div>
+              <input type="radio"
+                     name="radSize"
+                     id="radio1"
+                     value="small"
+                     class="radio-button-bg"
+                     style="border: 1px solid #DFDFDF;"
+                     disabled/>
+            </div>
+            <div>
+              <label for="radio1" class="radio-button-text color-light-gray">Yes</label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
+            <div>
+              <input type="radio"
+                     name="radSize"
+                     id="radio2"
+                     value="small"
+                     class="radio-button-bg"
+                     style="border: 1px solid #DFDFDF;"
+                     disabled/>
+            </div>
+            <div>
+              <label for="radio2" class="radio-button-text color-light-gray">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-10">
+        <p class="font-size-15 font-weight-500 color-gray">Device settings</p>
+
+        <!--  Radio group 1 -->
+
+        <div>
+          <p class="color-gray">Download Vidmojis to device only when connected to Wi-Fi</p>
+
+          <div style="display: flex;">
+            <div class="row" style="margin-bottom: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting1"
+                       id="radio3"
+                       value="setting1"
+                       class="radio-button-bg"
+                       checked/>
+              </div>
+              <div>
+                <label for="radio3" class="radio-button-text">Yes</label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting1"
+                       id="radio4"
+                       value="setting1"
+                       class="radio-button-bg"/>
+              </div>
+              <div>
+                <label for="radio4" class="radio-button-text">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  Radio group 2 -->
+
+        <div>
+          <p class="color-gray">Upload Vidmojis only when connected to Wi-Fi</p>
+
+          <div style="display: flex;">
+            <div class="row" style="margin-bottom: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting2"
+                       id="radio5"
+                       value="setting2"
+                       class="radio-button-bg"
+                       checked/>
+              </div>
+              <div>
+                <label for="radio5" class="radio-button-text"">Yes</label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting2"
+                       id="radio6"
+                       value="setting2"
+                       class="radio-button-bg"/>
+              </div>
+              <div>
+                <label for="radio6" class="radio-button-text">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  Radio group 3 -->
+
+        <div>
+          <p class="color-gray">Suggest Vidmojis only when connected to Wi-Fi</p>
+
+          <div style="display: flex;border-bottom: 2px solid #DFDFDF;">
+            <div class="row" style="margin-bottom: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting3"
+                       id="radio7"
+                       value="setting3"
+                       class="radio-button-bg"
+                       checked/>
+              </div>
+              <div>
+                <label for="radio7" class="radio-button-text">Yes</label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
+              <div>
+                <input type="radio"
+                       name="setting3"
+                       id="radio8"
+                       value="setting3"
+                       class="radio-button-bg"/>
+              </div>
+              <div>
+                <label for="radio8" class="radio-button-text">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="button facebook-button margin-top-20 line-min-height" ng-click="goHome()"><i>Skip</i><i class="ion-ios-arrow-thin-right" style="padding-left: 10px;"></i></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
