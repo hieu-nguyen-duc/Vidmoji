@@ -6,13 +6,13 @@
         <img src="img/logo.png" style="width: 200px;">
         <div class="list padding margin-top-30" style="padding-top: 0;">
           <label class="item-input">
-            <input type="text" placeholder="USERNAME" class="color-white">
+            <input type="text" placeholder="USERNAME" class="color-white" ng-model="logindata.username">
           </label>
           <label class="item-input">
-            <input type="password" placeholder="PASSWORD" class="color-white">
+            <input type="password" placeholder="PASSWORD" class="color-white" ng-model="logindata.password">
           </label>
           <div style="text-align: center;margin-top: 5px;">
-            <ion-checkbox ng-model="isChecked" style="border: transparent;display: inline-flex;background-color: white;" class="font-size-12" ng-click="stayLoggedIn()">Keep me sign in</ion-checkbox>
+            <ion-checkbox ng-model="logindata.isChecked" style="border: transparent;display: inline-flex;background-color: white;" class="font-size-12" ng-click="stayLoggedIn()">Keep me sign in</ion-checkbox>
           </div>
           <button class="button width-100 margin-top-10 login-button" ng-click="login()">LogIn</button>
           <button class="button width-100 margin-top-20 instagram-button" ng-click="">Instagram</button>

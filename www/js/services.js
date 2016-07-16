@@ -186,13 +186,32 @@ angular.module('starter.services', [])
     }, function(error) {});
   }])
 
-.service('AlbumService', [function($http) {
+.service('AlbumService', function($http) {
+  var service = {};
+  service.loadVideo = function(query, callback) {
+    $http.post("http://staging.vidmoji.com/api/videos/process.ashx?action=load_videos",
+      query).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
 
-}])
+    });
+  }
 
-.service('PhotoService', [function($http) {
 
-}])
+  return service;
+})
+
+.service('PhotoService', function($http) {
+
+})
 
 .service('AccountService', function($http) {
   var service = {}
@@ -217,14 +236,9 @@ angular.module('starter.services', [])
   }
 
   service.login = function(logindata, callback) {
-    var data = {
-      UserName: "hieund",
-      Password: "nguyenduchieu213"
-    };
-
     $http.post(
-      'http://staging.vidmoji.com/api/members/process.ashx?action=login',
-      data).then(function(res) {
+      'http://staging.vidmoji.com/api/user/process.ashx?action=login',
+      logindata).then(function(res) {
 
       callback(res);
       console.log(res);
@@ -235,13 +249,25 @@ angular.module('starter.services', [])
         role: ''
       }
       callback(data);
-      console.log(error);
-
     });
-
   }
 
+  service.signup = function(signupdata, callback) {
+    $http.post(
+      'http://staging.vidmoji.com/api/user/process.ashx?action=register',
+      signupdata).then(function(res) {
+      callback(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+    });
 
+
+  }
 
   return service;
 });

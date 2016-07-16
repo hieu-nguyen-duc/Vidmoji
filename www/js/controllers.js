@@ -33,15 +33,48 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('LoginCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, AccountService) {
+.controller('LoginCtrl', function($scope, $localStorage, $ionicSideMenuDelegate, $state, $rootScope, $ionicLoading, $ionicPopup, AccountService) {
+  $scope.logindata = {};
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
 
-  $scope.isChecked = true;
+  $scope.logindata.isChecked = true;
+
+
 
   $scope.login = function() {
-    AccountService.login({}, function() {
+    $ionicLoading.show({
+      template: 'Processing...'
+    });
+    if (!$scope.logindata.username) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Please enter username'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
+    if (!$scope.logindata.password) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Please enter password'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
 
+    AccountService.login($scope.logindata, function(res) {
+      $ionicLoading.hide({});
+      if (res && res.data && res.data.data && res.data.data.Status == "success") {
+        $rootScope.User = res.data.data.Data[0];
+        $localStorage.User = res.data.data.Data[0];
+        $state.go('app.home');
+      } else {
+        $ionicPopup.alert({
+          title: 'alert',
+          template: res.data.message
+        });
+      }
     });
   }
 
@@ -63,7 +96,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SettingsCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, disqusApi) {
+.controller('SettingsCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, disqusApi, AccountService) {
 
   var params = {
     limit: 5,
@@ -87,7 +120,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $interval) {
+.controller('HomeCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $interval, AlbumService) {
+
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
   $scope.recentVideos = [1, 2, 3];
@@ -198,6 +232,30 @@ angular.module('starter.controllers', [])
     // Update the video volume
     video.volume = volumeBar.value;
   });
+
+  var loadVideo = function() {
+    var query = {
+      UserName: $rootScope.User.UserName,
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: true,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 0, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+      $scope.lstvideo = res.data.data.Data;
+    });
+
+  }
+  loadVideo();
 
 })
 
@@ -760,10 +818,75 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('RegisterCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope) {
+.controller('RegisterCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, $ionicLoading, $ionicPopup, AccountService) {
+  $scope.signupdata = {};
+  $scope.signupdata.gender = "1";
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
+  $scope.signup = function() {
+    $ionicLoading.show({
+      template: 'Processing...'
+    });
+    if (!$scope.signupdata.username) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Please enter username'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
+    if (!$scope.signupdata.password) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Please enter password'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
 
+    if ($scope.signupdata.password != $scope.signupdata.confirmpassword) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Password not match'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
+
+    if (!$scope.signupdata.email) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Please enter email'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
+
+    if (!$scope.signupdata.isgree) {
+      $ionicPopup.alert({
+        title: 'alert',
+        template: 'Are you agree with my terms of service'
+      })
+      $ionicLoading.hide({});
+      return;
+    }
+    var data = {};
+    data.UserName = $scope.signupdata.username;
+    data.Password = $scope.signupdata.password;
+    data.Email = $scope.signupdata.email;
+    data.Gender = $scope.signupdata.gender;
+    data.Country = "VietNam";
+    AccountService.signup(data, function(res) {
+      if (res && res.data.status == "success") {
+        $state.go('login');
+      } else {
+        $ionicPopup.alert({
+          title: 'alert',
+          template: res.data.message
+        })
+      }
+    });
+  }
   $scope.goLogin = function() {
     $state.go('login');
   };

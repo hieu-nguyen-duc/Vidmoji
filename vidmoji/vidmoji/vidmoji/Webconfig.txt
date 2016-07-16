@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <!--
   For more information on how to configure your ASP.NET application, please visit
   http://go.microsoft.com/fwlink/?LinkId=169433
@@ -49,13 +49,13 @@
 
     <globalization uiCulture="en" culture="en"/>
   </system.web>
-
+ 
   <system.webServer>
-    <httpProtocol>
-      <customHeaders>
-        <add name="Access-Control-Allow-Origin" value="*" />
-      </customHeaders>
-    </httpProtocol>
+<httpProtocol>
+     <customHeaders>
+       <add name="Access-Control-Allow-Origin" value="*" />
+     </customHeaders>
+   </httpProtocol>
 
 
     <modules runAllManagedModulesForAllRequests="true"></modules>
