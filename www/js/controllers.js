@@ -233,12 +233,36 @@ angular.module('starter.controllers', [])
     video.volume = volumeBar.value;
   });
 
-  var loadVideo = function() {
+  var loadFeaturedVideo = function() {
     var query = {
-      UserName: $rootScope.User.UserName,
+      // UserName: $rootScope.User.UserName,
       isEnabled: 1,
       isReviewed: 1,
-      LoadLibrary: true,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: true, // make it true for loading liked videos
+      Type: 0, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 1, // filter records by featured, 1: for featured, 0: for normal,
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+
+      $scope.FeaturedVideo = res.data.data.Data[0];
+    });
+
+  }
+
+  var loadRecentVideo = function() {
+    var query = {
+      // UserName: $rootScope.User.UserName,
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
       LoadFavorites: false, // make it true for loading favorited videos
       LoadLiked: false, // make it true for loading liked videos
       Type: 0, // 0: for videos, 1: for audio
@@ -248,24 +272,114 @@ angular.module('starter.controllers', [])
       Categories: '', // filter records by category
       Tags: '', // filter records by tags
       isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc'
     }
 
     AlbumService.loadVideo(query, function(res) {
-      $scope.lstvideo = res.data.data.Data;
+
+      $scope.recentVideos = res.data.data.Data;
     });
 
   }
-  loadVideo();
+  var loadRecentAudio = function() {
+    var query = {
+      // UserName: $rootScope.User.UserName,
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 1, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc'
+    }
 
+    AlbumService.loadVideo(query, function(res) {
+      debugger;
+      $scope.recentAudios = res.data.data.Data;
+    });
+
+  }
+  var loadRecentPhoto = function() {
+    var query = {
+      // UserName: '',
+      isDisabled: 1,
+      isApproved: 1,
+      LoadLibrary: true,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags,
+      Order: 'date_added desc'
+    }
+
+    AlbumService.loadPhoto(query, function(res) {
+
+      $scope.recentPhotos = res.data.data.Data[0];
+    });
+
+  }
+
+
+  loadFeaturedVideo();
+  loadRecentVideo();
+  loadRecentAudio();
+  // loadRecentPhoto();
 })
 
-.controller('VideoCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope) {
+.controller('VideoCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, AlbumService) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
 
   $scope.videoCategories = ['Autos and Vehicles', 'Entertainment', 'Comedy', 'Film and Animation', 'See all'];
   $scope.Archives = ['March 2016', 'February 2016', 'See All'];
-  $scope.recentVideos = [1, 2, 3];
+
+  var loadvideocategory = function() {
+    var query = {
+      Type: 0, // 0: for videos, 5: for photos, 7: for audio
+      Records: 10,
+    }
+
+    AlbumService.loadMediaCategory(query, function(res) {
+
+      $scope.videoCategories = res.data.Data;
+    });
+  }
+
+  var loadRecentVideo = function() {
+    var query = {
+
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 0, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc'
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+
+      $scope.recentVideos = res.data.data.Data;
+    });
+
+  }
+  loadRecentVideo();
+  loadvideocategory();
 
 })
 
@@ -354,6 +468,7 @@ angular.module('starter.controllers', [])
 .controller('AudioByCategoryCtrl', function($scope, $ionicSideMenuDelegate, $rootScope) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
+
   $scope.recentAudio = [1, 2, 3];
 
   $scope.cateName = $rootScope.categotyTitle;
@@ -384,6 +499,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('VideoDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicLoading, HTTP, $ionicModal, $ionicScrollDelegate, $rootScope, $state, $timeout) {
+
+
+
+
   $rootScope.hideNavBar = false;
   $scope.showControlBar = true;
 

@@ -34,23 +34,19 @@
 
 
     <!--Featured videos-->
-    <div style="border: 1px solid orange;" class="margin-bottom-10">
+    <div style="border: 1px solid orange;" class="margin-bottom-10" ng-show="FeaturedVideo">
       <div class="width-100 background-orange text-center color-white padding font-size-15">Featured videos</div>
       <div class="padding">
         <div class="card">
-          <div ng-click="goVideoDetail()">
-            <!--<video id="featuredVideo" controls poster="img/dummy_video.png" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
-              <source src="http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4" type="video/mp4"/>
-              Your browser does not support this video player.
-            </video>-->
-            <img class="full-image" src="img/dummy_video.png">
+          <a href="#/videodetail/{{FeaturedVideo.VideoID}}" style="text-decoration:none;">
+            <img class="full-image" src="http://staging.vidmoji.com/contents/member/Administrator/Thumbs/{{FeaturedVideo.ThumbFileName}}">
             <div class="padding">
-              <p class="menu-icon-color p-tag-bottom-margin">Your Smart</p>
-              <p class="color-gray p-tag-bottom-margin">2 months ago</p>
-              <p class="color-gray p-tag-bottom-margin">650 views</p>
-              <p class="menu-icon-color p-tag-bottom-margin">This is a dummy featured videos</p>
+              <p class="menu-icon-color p-tag-bottom-margin">{{FeaturedVideo.Title}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{FeaturedVideo.Date_Added}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{FeaturedVideo.Views }} views</p>
+              <p class="menu-icon-color p-tag-bottom-margin">{{FeaturedVideo.UserName}}</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
      <!-- <div class="text-center">
@@ -59,22 +55,19 @@
     </div>
 
     <!--Recent vodeos-->
-    <div style="border: 1px solid orange;" class="margin-bottom-10">
+    <div style="border: 1px solid orange;" class="margin-bottom-10" ng-show="recentVideos">
       <div class="width-100 background-orange text-center color-white padding font-size-15">Recent Videos</div>
       <div class="padding" ng-repeat="data in recentVideos">
         <div class="card">
-          <div ng-click="goVideoDetail()">
-            <img class="full-image" src="img/dummy_video.png">
+          <a href="#/videodetail/{{data.VideoID}}" style="text-decoration:none;">
+            <img class="full-image" src="http://staging.vidmoji.com/contents/member/Administrator/Thumbs/{{data.ThumbFileName}}">
             <div class="padding">
-              <p class="menu-icon-color p-tag-bottom-margin">Good Morning</p>
-              <p class="color-gray p-tag-bottom-margin">2 weeks ago</p>
-              <p class="color-gray p-tag-bottom-margin">47 views</p>
-              <p class="menu-icon-color p-tag-bottom-margin">This is a dummy video</p>
-              <div>
-                <i class="font-size-12 color-light-black" ng-repeat="tag in tagData" style="margin: 5px 5px 10px 0;text-decoration: underline;" ng-click="goSearchPage(tag); $event.stopPropagation();">{{tag}}</i>
-              </div>
+              <p class="menu-icon-color p-tag-bottom-margin">{{data.Title}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{data.Date_Added}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{data.Views }} views</p>
+              <p class="menu-icon-color p-tag-bottom-margin">{{data.UserName}}</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div class="text-center">
@@ -83,9 +76,9 @@
     </div>
 
     <!--Recent photos-->
-    <div style="border: 1px solid orange;" class="margin-bottom-10">
+    <div style="border: 1px solid orange;" class="margin-bottom-10" ng-show="recentPhotos">
       <div class="width-100 background-orange text-center color-white padding font-size-15">Recent Photos</div>
-      <div class="padding" ng-repeat="data in recentVideos">
+      <div class="padding" ng-repeat="data in recentPhotos">
         <div class="card">
           <div  ng-click="goPhotoDetail()">
             <img class="full-image" src="img/dummy_photo.png">
@@ -107,23 +100,19 @@
 
     <!--Recent audios-->
     <div class="padding-bottom-10">
-    <div style="border: 1px solid orange;">
+    <div style="border: 1px solid orange;" ng-show="recentAudios">
       <div class="width-100 background-orange text-center color-white padding font-size-15">Recent Audio</div>
-      <div class="padding" ng-repeat="data in recentVideos">
+      <div class="padding" ng-repeat="data in recentAudios">
         <div class="card">
-          <div ng-click="goAudioDetail()">
-            <img class="full-image" src="img/audio_icon.png">
+          <a href="#/videodetail/{{data.VideoID}}" style="text-decoration:none;">
+            <img class="full-image" src="http://staging.vidmoji.com/contents/member/Administrator/Thumbs/{{data.ThumbFileName}}">
             <div class="padding">
-              <p class="menu-icon-color p-tag-bottom-margin">I Miss You</p>
-              <p class="color-gray p-tag-bottom-margin">0:0:9</p>
-              <p class="color-gray p-tag-bottom-margin">3 weeks ago</p>
-              <p class="color-gray p-tag-bottom-margin">50 views</p>
-              <p class="menu-icon-color p-tag-bottom-margin">This is a dummy audio</p>
-              <div>
-                <i class="font-size-12 color-light-black" ng-repeat="tag in tagData" style="margin: 5px 5px 10px 0;text-decoration: underline;" ng-click="goSearchPage(tag); $event.stopPropagation();">{{tag}}</i>
-              </div>
+              <p class="menu-icon-color p-tag-bottom-margin">{{data.Title}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{data.Date_Added}}</p>
+              <p class="color-gray p-tag-bottom-margin">{{data.Views }} views</p>
+              <p class="menu-icon-color p-tag-bottom-margin">{{data.UserName}}</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div class="text-center">

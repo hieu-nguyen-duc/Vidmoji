@@ -204,6 +204,40 @@ angular.module('starter.services', [])
 
     });
   }
+  service.loadPhoto = function(query, callback) {
+    $http.post("http://staging.vidmoji.com/api/photos/process.ashx?action=load_photos",
+      query).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
+
+    });
+  }
+
+  service.loadMediaCategory = function(query, callback) {
+    $http.post("http://staging.vidmoji.com/api/categories/process.ashx?action=load_categories",
+      query).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
+
+    });
+  }
+
 
 
   return service;

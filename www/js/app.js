@@ -204,7 +204,7 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
 
   .state('videodetail', {
     cache: false,
-    url: '/videodetail',
+    url: '/videodetail/:videoid',
     templateUrl: 'templates/video-detail.html',
     controller: 'VideoDetailCtrl'
   })
