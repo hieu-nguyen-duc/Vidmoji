@@ -303,5 +303,77 @@ angular.module('starter.services', [])
 
   }
 
+  service.updateprofile = function(user, callback) {
+    var objUser = {
+      UserName: user.UserName,
+      AboutMe: user.AboutMe,
+      Website: user.Website,
+      FirstName: user.FirstName,
+      LastName: user.LastName,
+      Gender: user.Gender,
+      HometTown: user.HometTown,
+      CurrentCity: user.CurrentCity,
+      Zipcode: user.Zipcode,
+      CountryName: user.CountryName,
+      Occupations: user.Occupations,
+      Companies: user.Companies,
+      Schools: user.Schools,
+      Interests: user.Interests
+    };
+    $http.post(
+      'http://staging.vidmoji.com/api/user/process.ashx?action=update_profile',
+      objUser).then(function(res) {
+      callback(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+    });
+  }
+
+  service.updateemail = function(user, callback) {
+    var objUser = {
+      UserName: user.UserName,
+      Password: user.currentpass,
+      Email: user.Email
+    };
+    $http.post(
+      'http://staging.vidmoji.com/api/user/process.ashx?action=email_options',
+      objUser).then(function(res) {
+      callback(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+    });
+  }
+
+  service.updatepassword = function(user, callback) {
+    var objUser = {
+      UserName: user.UserName
+    };
+
+    var url = "http://staging.vidmoji.com/api/user/process.ashx?action=change_password&op=" + user.oldpassword + "&np" + user.newpassword + "";
+
+    $http.post(url, objUser).then(function(res) {
+      callback(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+    });
+  }
+
+
+
   return service;
 });

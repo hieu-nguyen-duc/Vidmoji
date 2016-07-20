@@ -1,17 +1,11 @@
 <ion-view hide-back-button="true" view-title="Profile">
   <div class="tabs tabs-border margin-top-50">
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='overview'}"
-       ng-click="switchTab('overview')">Overview</a>
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='profile_setup'}"
-       ng-click="switchTab('profile_setup')">Profile Setup</a>
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='email_option'}"
-       ng-click="switchTab('email_option')">Email Options</a>
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='manage'}"
-       ng-click="switchTab('manage')">Manage</a>
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='settings'}"
-       ng-click="switchTab('settings')">Settings</a>
-    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='my_library'}"
-       ng-click="switchTab('my_library')">My Library</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='overview'}" ng-click="switchTab('overview')">Overview</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='profile_setup'}" ng-click="switchTab('profile_setup')">Profile Setup</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='email_option'}" ng-click="switchTab('email_option')">Email Options</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='manage'}" ng-click="switchTab('manage')">Manage</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='settings'}" ng-click="switchTab('settings')">Settings</a>
+    <a class="tab-item tab-item-font-size" ng-class="{'tab-item-background':selectedPage=='my_library'}" ng-click="switchTab('my_library')">My Library</a>
   </div>
   <ion-content class="padding margin-top-70">
 
@@ -19,15 +13,15 @@
 
       <div class="row">
 
-        <img class="col profile-img-div" src="img/dummy_user.png"/>
+        <img class="col profile-img-div" src="img/dummy_user.png" />
 
         <div class="col col-75 profile-detail-div">
 
-          <p class="profile-name-text">Parvindra</p>
+          <p class="profile-name-text">{{User.FirstName}} {{User.LastName}}</p>
 
-          <p class="profile-gender-text">Male, single</p>
+          <p class="profile-gender-text">{{User.Gender}}, {{User.Status}}</p>
 
-          <p class="profile-country-text">India</p>
+          <p class="profile-country-text">{{User.Country}}</p>
 
           <p class="profile-channel-text">Cannel views &nbsp;</p>
 
@@ -130,51 +124,42 @@
       <h3 class="profile-setup-main-text">Profile Setup</h3>
 
       <div class="profile-setup-img-div">
-      <div class="row">
-        <img class="col profile-setting-img-div" src="img/dummy_user.png"/>
-      </div>
+        <div class="row">
+          <img class="col profile-setting-img-div" src="img/dummy_user.png" />
+        </div>
 
-      <div style="margin-left: 10px;">
-        <button class="button button-outline see-all-button font-size-12 line-min-height" ng-click="goSettings()">Change</button>
-      </div>
+        <div style="margin-left: 10px;">
+          <button class="button button-outline see-all-button font-size-12 line-min-height" ng-click="goSettings()">Change</button>
+        </div>
       </div>
       <div style="margin-top: 15px;">
         <ion-list>
           <div ng-repeat="group in aboutGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-              About me
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; About me
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
-             <div>
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+              <div>
 
-               <span class="des-yourself-text">Describe yourself:</span>
-               <textarea class="form-control" style="height:100px;"></textarea>
-               <span><b>300</b> chars left.</span><br>
+                <span class="des-yourself-text">Describe yourself:</span>
+                <textarea class="form-control" style="height:100px;"></textarea>
+                <span><b>300</b> chars left.</span>
+                <br>
 
-               <span class="des-yourself-text">Website (URL):</span>
-               <input type="text" maxlength="128" class="form-control" />
+                <span class="des-yourself-text">Website (URL):</span>
+                <input type="text" maxlength="128" class="form-control" />
 
-               <div class="padding"></div>
+                <div class="padding"></div>
 
-             </div>
+              </div>
             </ion-item>
           </div>
 
           <div style="margin-top: 10px;" ng-repeat="group in personalGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-             Personal Detail
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Personal Detail
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
               <div>
 
                 <span class="des-yourself-text">First Name:</span>
@@ -225,15 +210,10 @@
           </div>
 
           <div style="margin-top: 10px;" ng-repeat="group in hometownGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-              Hometown/Location
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Hometown/Location
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
               <div>
 
                 <span class="des-yourself-text">Hometown:</span>
@@ -501,24 +481,21 @@
           </div>
 
           <div style="margin-top: 10px;" ng-repeat="group in jobsGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-              Jobs/Career
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Jobs/Career
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
               <div>
 
                 <span class="des-yourself-text">Occupations:</span>
                 <textarea class="form-control" style="height:100px;"></textarea>
-                <span><b>300</b> chars left.</span><br>
+                <span><b>300</b> chars left.</span>
+                <br>
 
                 <span class="des-yourself-text">Companies:</span>
                 <textarea class="form-control" style="height:100px;"></textarea>
-                <span><b>300</b> chars left.</span><br>
+                <span><b>300</b> chars left.</span>
+                <br>
 
                 <div class="padding"></div>
 
@@ -527,58 +504,54 @@
           </div>
 
           <div style="margin-top: 10px;" ng-repeat="group in educationGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-              Education
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Education
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
               <div>
 
                 <span class="des-yourself-text">Schools:</span>
                 <textarea class="form-control" style="height:100px;"></textarea>
-                <span><b>300</b> chars left.</span><br>
+                <span><b>300</b> chars left.</span>
+                <br>
 
 
 
                 <div class="padding"></div>
 
               </div>
-</ion-item></div>
+            </ion-item>
+          </div>
 
           <div style="margin-top: 10px;" ng-repeat="group in interestGroups">
-                <ion-item class="item-stable expand-item-font-size"
-                          ng-click="toggleGroup(group)"
-                          ng-class="{active: isGroupShown(group)}">
-                  &nbsp;
-                  Interests
-                </ion-item>
-                <ion-item class="item-accordion"
-                          ng-repeat="item in group.items"
-                          ng-show="isGroupShown(group)">
-                  <div>
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Interests
+            </ion-item>
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+              <div>
 
-                    <span class="des-yourself-text">Interests:</span>
-                    <textarea class="form-control" style="height:100px;"></textarea>
-                    <span><b>300</b> chars left.</span><br>
+                <span class="des-yourself-text">Interests:</span>
+                <textarea class="form-control" style="height:100px;"></textarea>
+                <span><b>300</b> chars left.</span>
+                <br>
 
-                    <span class="des-yourself-text">Favorite Movies & Shows:</span>
-                    <textarea class="form-control" style="height:100px;"></textarea>
-                    <span><b>300</b> chars left.</span><br>
+                <span class="des-yourself-text">Favorite Movies & Shows:</span>
+                <textarea class="form-control" style="height:100px;"></textarea>
+                <span><b>300</b> chars left.</span>
+                <br>
 
-                    <span class="des-yourself-text">Favorite Musics:</span>
-                    <textarea class="form-control" style="height:100px;"></textarea>
-                    <span><b>300</b> chars left.</span><br>
+                <span class="des-yourself-text">Favorite Musics:</span>
+                <textarea class="form-control" style="height:100px;"></textarea>
+                <span><b>300</b> chars left.</span>
+                <br>
 
-                    <span class="des-yourself-text">Favorite Books:</span>
-                    <textarea class="form-control" style="height:100px;"></textarea>
-                    <span><b>300</b> chars left.</span><br>
+                <span class="des-yourself-text">Favorite Books:</span>
+                <textarea class="form-control" style="height:100px;"></textarea>
+                <span><b>300</b> chars left.</span>
+                <br>
 
 
-                  </div>
+              </div>
 
             </ion-item>
           </div>
@@ -608,15 +581,10 @@
         <div style="margin-top: 15px;">
           <ion-list>
             <div style="margin-top: 10px;" ng-repeat="group in emailAddressGroups">
-              <ion-item class="item-stable expand-item-font-size"
-                        ng-click="toggleGroup(group)"
-                        ng-class="{active: isGroupShown(group)}">
-                &nbsp;
-              E-mail Address
+              <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                &nbsp; E-mail Address
               </ion-item>
-              <div class="item-accordion padding"
-                        ng-repeat="item in group.items"
-                        ng-show="isGroupShown(group)">
+              <div class="item-accordion padding" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
                 <div>
 
                   <span class="des-yourself-text">Enter a new email address and your current password, and click "Send Email". You will receive a confirmation email at the new address containing a link to confirm the change.</span>
@@ -624,19 +592,19 @@
                     <strong class="font-size-15">Current E-mail Address:</strong> <span id="MC_emailo1_cemail" class="des-yourself-text">parvindra.logics@gmail.com</span>
                   </div>
                   <div class="margin-top-20">
-                  <span class="des-yourself-text margin-top-20">New E-mail Address:</span>
-                    </div>
+                    <span class="des-yourself-text margin-top-20">New E-mail Address:</span>
+                  </div>
                   <input type="text" maxlength="128" class="form-control margin-top-10" />
 
                   <div class="margin-top-20">
-                  <span class="des-yourself-text margin-top-20">Account Password:</span>
-                    </div>
+                    <span class="des-yourself-text margin-top-20">Account Password:</span>
+                  </div>
                   <input type="text" maxlength="128" class="form-control margin-top-10" />
 
                   <div class="text-center">
 
                     <button class="button button-light save-changes-button">
-                     Send Confirmation
+                      Send Confirmation
                     </button>
 
                   </div>
@@ -649,15 +617,10 @@
             </div>
 
             <div style="margin-top: 10px;" ng-repeat="group in emailYouGroups">
-              <ion-item class="item-stable expand-item-font-size"
-                        ng-click="toggleGroup(group)"
-                        ng-class="{active: isGroupShown(group)}">
-                &nbsp;
-                How Often We Email You
+              <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                &nbsp; How Often We Email You
               </ion-item>
-              <div class="item-accordion padding"
-                   ng-repeat="item in group.items"
-                   ng-show="isGroupShown(group)">
+              <div class="item-accordion padding" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
                 <div>
 
                   <div class="row" style="margin-bottom: -10px;">
@@ -670,11 +633,16 @@
                   </div>
 
                   <div id="MC_emailo1_chk_lst" style="padding-left: 35px; line-height: 20px; border: none;" class="item">
-                    <input id="MC_emailo1_chk_vcomment" type="checkbox" name="ctl00$MC$emailo1$chk_vcomment" checked="checked">&nbsp;One of my videos receives a comment or a video response.<br>
-                    <input id="MC_emailo1_chk_ccomment" type="checkbox" name="ctl00$MC$emailo1$chk_ccomment" checked="checked">&nbsp;Someone leaves a comment on my channel.<br>
-                    <input id="MC_emailo1_chk_pmsg" type="checkbox" name="ctl00$MC$emailo1$chk_pmsg" checked="checked">&nbsp;I receive a private message.<br>
-                    <input id="MC_emailo1_chk_finvite" type="checkbox" name="ctl00$MC$emailo1$chk_finvite" checked="checked">&nbsp;I receive a friend invite from another user.<br>
-                    <input id="MC_emailo1_chk_subscribe" type="checkbox" name="ctl00$MC$emailo1$chk_subscribe" checked="checked">&nbsp;Someone subscribes to my channel.<br>
+                    <input id="MC_emailo1_chk_vcomment" type="checkbox" name="ctl00$MC$emailo1$chk_vcomment" checked="checked">&nbsp;One of my videos receives a comment or a video response.
+                    <br>
+                    <input id="MC_emailo1_chk_ccomment" type="checkbox" name="ctl00$MC$emailo1$chk_ccomment" checked="checked">&nbsp;Someone leaves a comment on my channel.
+                    <br>
+                    <input id="MC_emailo1_chk_pmsg" type="checkbox" name="ctl00$MC$emailo1$chk_pmsg" checked="checked">&nbsp;I receive a private message.
+                    <br>
+                    <input id="MC_emailo1_chk_finvite" type="checkbox" name="ctl00$MC$emailo1$chk_finvite" checked="checked">&nbsp;I receive a friend invite from another user.
+                    <br>
+                    <input id="MC_emailo1_chk_subscribe" type="checkbox" name="ctl00$MC$emailo1$chk_subscribe" checked="checked">&nbsp;Someone subscribes to my channel.
+                    <br>
                   </div>
 
                   <div class="row margin-top-10" style="margin-bottom: 5px;">
@@ -687,11 +655,11 @@
                   </div>
                   <div class="text-center">
 
-                  <button class="button button-light save-changes-button">
-                    Save Changes
-                  </button>
+                    <button class="button button-light save-changes-button">
+                      Save Changes
+                    </button>
 
-                </div>
+                  </div>
 
                   <div class="padding"></div>
 
@@ -700,7 +668,7 @@
               </div>
             </div>
 
-        </ion-list>
+          </ion-list>
         </div>
       </div>
 
@@ -713,19 +681,15 @@
       <div style="margin-top: 15px;">
         <ion-list>
           <div ng-repeat="group in changePasswordGroups">
-            <ion-item class="item-stable expand-item-font-size"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-              &nbsp;
-              Change Password
+            <ion-item class="item-stable expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+              &nbsp; Change Password
             </ion-item>
-            <ion-item class="item-accordion"
-                      ng-repeat="item in group.items"
-                      ng-show="isGroupShown(group)">
+            <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
               <div>
 
                 <span class="des-yourself-text">User Name:</span>
-                <span class="des-yourself-text"><strong>parvindra</strong></span><br>
+                <span class="des-yourself-text"><strong>parvindra</strong></span>
+                <br>
 
                 <span class="des-yourself-text">Verify Old Password:</span>
                 <input type="text" maxlength="128" class="form-control" />
@@ -749,8 +713,8 @@
               </div>
             </ion-item>
           </div>
-</ion-list>
-        </div>
+        </ion-list>
+      </div>
     </div>
 
     <div ng-if="selectedPage=='settings'">
@@ -760,24 +724,17 @@
         <div>
           <p class="font-size-15 font-weight-500 color-gray">Instagram</p>
 
-          <p class="color-gray">You can build your Vidmoji collection by liking your favourite clips posted by
-            @Vidmoji</p>
+          <p class="color-gray">You can build your Vidmoji collection by liking your favourite clips posted by @Vidmoji
+          </p>
           <button class="button facebook-button line-min-height" ng-click="goLogin()">Authenticate Instagram</button>
         </div>
         <div style="border-bottom: 2px solid #DFDFDF;">
-          <p class="margin-top-10 color-light-gray" >Any time you like a vidmoji instagram clip,automatically add to
-            my library</p>
+          <p class="margin-top-10 color-light-gray">Any time you like a vidmoji instagram clip,automatically add to my library</p>
 
           <div style="display: flex;">
             <div class="row" style="margin-bottom: 5px;">
               <div>
-                <input type="radio"
-                       name="radSize"
-                       id="radio1"
-                       value="small"
-                       class="radio-button-bg"
-                       style="border: 1px solid #DFDFDF;"
-                       disabled/>
+                <input type="radio" name="radSize" id="radio1" value="small" class="radio-button-bg" style="border: 1px solid #DFDFDF;" disabled/>
               </div>
               <div>
                 <label for="radio1" class="radio-button-text color-light-gray">Yes</label>
@@ -786,13 +743,7 @@
 
             <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
               <div>
-                <input type="radio"
-                       name="radSize"
-                       id="radio2"
-                       value="small"
-                       class="radio-button-bg"
-                       style="border: 1px solid #DFDFDF;"
-                       disabled/>
+                <input type="radio" name="radSize" id="radio2" value="small" class="radio-button-bg" style="border: 1px solid #DFDFDF;" disabled/>
               </div>
               <div>
                 <label for="radio2" class="radio-button-text color-light-gray">No</label>
@@ -811,12 +762,7 @@
             <div style="display: flex;">
               <div class="row" style="margin-bottom: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting1"
-                         id="radio3"
-                         value="setting1"
-                         class="radio-button-bg"
-                         checked/>
+                  <input type="radio" name="setting1" id="radio3" value="setting1" class="radio-button-bg" checked/>
                 </div>
                 <div>
                   <label for="radio3" class="radio-button-text">Yes</label>
@@ -825,11 +771,7 @@
 
               <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting1"
-                         id="radio4"
-                         value="setting1"
-                         class="radio-button-bg"/>
+                  <input type="radio" name="setting1" id="radio4" value="setting1" class="radio-button-bg" />
                 </div>
                 <div>
                   <label for="radio4" class="radio-button-text">No</label>
@@ -846,12 +788,7 @@
             <div style="display: flex;">
               <div class="row" style="margin-bottom: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting2"
-                         id="radio5"
-                         value="setting2"
-                         class="radio-button-bg"
-                         checked/>
+                  <input type="radio" name="setting2" id="radio5" value="setting2" class="radio-button-bg" checked/>
                 </div>
                 <div>
                   <label for="radio5" class="radio-button-text">Yes</label>
@@ -860,11 +797,7 @@
 
               <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting2"
-                         id="radio6"
-                         value="setting2"
-                         class="radio-button-bg"/>
+                  <input type="radio" name="setting2" id="radio6" value="setting2" class="radio-button-bg" />
                 </div>
                 <div>
                   <label for="radio6" class="radio-button-text">No</label>
@@ -881,12 +814,7 @@
             <div style="display: flex;border-bottom: 2px solid #DFDFDF;">
               <div class="row" style="margin-bottom: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting3"
-                         id="radio7"
-                         value="setting3"
-                         class="radio-button-bg"
-                         checked/>
+                  <input type="radio" name="setting3" id="radio7" value="setting3" class="radio-button-bg" checked/>
                 </div>
                 <div>
                   <label for="radio7" class="radio-button-text">Yes</label>
@@ -895,11 +823,7 @@
 
               <div class="row" style="margin-bottom: 5px;margin-top: 5px;">
                 <div>
-                  <input type="radio"
-                         name="setting3"
-                         id="radio8"
-                         value="setting3"
-                         class="radio-button-bg"/>
+                  <input type="radio" name="setting3" id="radio8" value="setting3" class="radio-button-bg" />
                 </div>
                 <div>
                   <label for="radio8" class="radio-button-text">No</label>
@@ -908,7 +832,7 @@
             </div>
           </div>
         </div>
-       <!-- <div class="text-center">
+        <!-- <div class="text-center">
           <button class="button facebook-button margin-top-20 line-min-height" ng-click="goHome()"><i>Skip</i><i class="ion-ios-arrow-thin-right" style="padding-left: 10px;"></i></button>
         </div>-->
       </div>
@@ -920,8 +844,8 @@
       <div class="list list-inset row">
 
         <div class="item text-center width-100">
-       My Videos
-      </div>
+          My Videos
+        </div>
 
         <div class="item text-center width-100">
           My Photos
@@ -941,10 +865,10 @@
 
       <div class="row" style="margin-left: -10px;">
         <div class="col col-75">
-          <input type="text" maxlength="128" class="form-control padding-left-15" placeholder="Search Library"/>
+          <input type="text" maxlength="128" class="form-control padding-left-15" placeholder="Search Library" />
         </div>
         <div class="col">
-          <input type="text" maxlength="128" class="form-control btn-primary" value="Search"/>
+          <input type="text" maxlength="128" class="form-control btn-primary" value="Search" />
         </div>
       </div>
 

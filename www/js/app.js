@@ -21,7 +21,13 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    $rootScope.User = $localStorage.User;
+    if($localStorage.User){
+      $rootScope.User = $localStorage.User;
+      $state.go("app.home");
+    }
+    else{
+      $state.go("app.login");
+    }
   });
 
   /*Get comments*/
@@ -299,13 +305,13 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
     controller: 'PhotoListCtrl'
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/home');
 
-  if (localStorage.getItem('rememberme') == 'true') {
-    $urlRouterProvider.otherwise('/app/settings');
-  } else {
-    $urlRouterProvider.otherwise('/login');
-  }
+  // if (localStorage.getItem('rememberme') == 'true') {
+  //   $urlRouterProvider.otherwise('/app/settings');
+  // } else {
+  //   $urlRouterProvider.otherwise('/home');
+  // }
 
   // $urlRouterProvider.otherwise('/audiodetail');
 });

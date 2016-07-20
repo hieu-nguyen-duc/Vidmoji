@@ -300,7 +300,6 @@ angular.module('starter.controllers', [])
     }
 
     AlbumService.loadVideo(query, function(res) {
-      debugger;
       $scope.recentAudios = res.data.data.Data;
     });
 
@@ -318,12 +317,11 @@ angular.module('starter.controllers', [])
       Term: '', // search term if any
       Categories: '', // filter records by category
       Tags: '', // filter records by tags,
-      Order: 'date_added desc'
+      Order: 'added_date desc'
     }
 
     AlbumService.loadPhoto(query, function(res) {
-
-      $scope.recentPhotos = res.data.data.Data[0];
+      $scope.recentPhotos = res.data.data.Data;
     });
 
   }
@@ -383,16 +381,49 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('AudioCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $state) {
+.controller('AudioCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $state, AlbumService) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
+  var loadAudioCategory = function() {
+    var query = {
+      Type: 7, // 0: for videos, 5: for photos, 7: for audio
+      Records: 10,
+    }
 
-  $scope.audioCategories = ['Songs', 'Entertainment', 'See all'];
-  $scope.recentAudio = [1, 2, 3];
+    AlbumService.loadMediaCategory(query, function(res) {
 
+      $scope.audioCategories = res.data.Data;
+    });
+  }
+
+  var loadRecentAudio = function() {
+    var query = {
+
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 1, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc'
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+      $scope.recentAudios = res.data.data.Data;
+    });
+
+  }
+  loadRecentAudio();
+  loadAudioCategory();
 })
 
-.controller('PhotoCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $state) {
+.controller('PhotoCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, $state, AlbumService) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
 
@@ -402,9 +433,44 @@ angular.module('starter.controllers', [])
   $scope.Archives = ['March 2016', 'February 2016', 'See All'];
   $scope.recentPhotos = [1, 2, 3];
 
+  var loadPhotoCategory = function() {
+    var query = {
+      Type: 5, // 0: for videos, 5: for photos, 7: for audio
+      Records: 10,
+    }
+
+    AlbumService.loadMediaCategory(query, function(res) {
+
+      $scope.photoCategories = res.data.Data;
+    });
+  }
+
+  var loadRecentPhoto = function() {
+    var query = {
+      isDisabled: 1,
+      isApproved: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      PageNumber: 1,
+      PageSize: 10,
+      Term: '', // search term if any
+      Categories: '',
+      Tags: '',
+      Order: "added_date desc"
+    }
+
+    AlbumService.loadPhoto(query, function(res) {
+      $scope.recentPhotos = res.data.data.Data;
+    });
+
+  }
+  loadRecentPhoto();
+  loadPhotoCategory();
+
 })
 
-.controller('PhotosByCategoryCtrl', function($scope, $ionicSideMenuDelegate, $rootScope) {
+.controller('PhotosByCategoryCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, AlbumService) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
   $scope.recentPhotos = [1, 2, 3];
