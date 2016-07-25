@@ -39,7 +39,7 @@
         <div class="margin-bottom-10" ng-repeat="data in recentVideos">
           <div class="card">
             <a href="#/videodetail/{{data.VideoID}}" style="text-decoration:none;">
-              <img class="full-image" src="http://staging.vidmoji.com/contents/member/Administrator/Thumbs/{{data.ThumbFileName}}">
+              <img class="full-image" src="http://staging.vidmoji.com/contents/member/{{data.UserName}}/Thumbs/{{data.ThumbFileName}}">
               <div class="padding">
                 <p class="menu-icon-color p-tag-bottom-margin">{{data.Title}}</p>
                 <p class="color-gray p-tag-bottom-margin">{{data.Date_Added}}</p>

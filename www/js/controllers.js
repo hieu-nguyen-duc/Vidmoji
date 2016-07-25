@@ -306,18 +306,17 @@ angular.module('starter.controllers', [])
   }
   var loadRecentPhoto = function() {
     var query = {
-      // UserName: '',
       isDisabled: 1,
       isApproved: 1,
-      LoadLibrary: true,
+      LoadLibrary: false,
       LoadFavorites: false, // make it true for loading favorited videos
       LoadLiked: false, // make it true for loading liked videos
       PageNumber: 1,
       PageSize: 10,
       Term: '', // search term if any
-      Categories: '', // filter records by category
-      Tags: '', // filter records by tags,
-      Order: 'added_date desc'
+      Categories: '',
+      Tags: '',
+      Order: "added_date desc"
     }
 
     AlbumService.loadPhoto(query, function(res) {
@@ -330,7 +329,7 @@ angular.module('starter.controllers', [])
   loadFeaturedVideo();
   loadRecentVideo();
   loadRecentAudio();
-  // loadRecentPhoto();
+  loadRecentPhoto();
 })
 
 .controller('VideoCtrl', function($scope, $ionicSideMenuDelegate, $state, $rootScope, AlbumService) {
@@ -1247,9 +1246,89 @@ angular.module('starter.controllers', [])
   $rootScope.hideNavBar = false;
 })
 
-.controller('SearchResultCtrl', function($scope, $ionicSideMenuDelegate, $rootScope) {
+.controller('SearchResultCtrl', function($scope, $ionicSideMenuDelegate, $rootScope, AlbumService) {
+  var searchtext = '';
+  if ($rootScope.searchText)
+    searchtext = $rootScope.searchText.toLowerCase();
   $ionicSideMenuDelegate.canDragContent(false);
   $rootScope.hideNavBar = false;
+  var loadRecentVideo = function() {
+    var query = {
+      // UserName: $rootScope.User.UserName,
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 0, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: searchtext, // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc',
+      SearchType: 3
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+
+      $scope.recentVideos = res.data.data.Data;
+    });
+
+  }
+  var loadRecentAudio = function() {
+    var query = {
+      // UserName: $rootScope.User.UserName,
+      isEnabled: 1,
+      isReviewed: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      Type: 1, // 0: for videos, 1: for audio
+      PageNumber: 1,
+      PageSize: 10,
+      Term: searchtext, // search term if any
+      Categories: '', // filter records by category
+      Tags: '', // filter records by tags
+      isFeatured: 2, // filter records by featured, 1: for featured, 0: for normal,
+      Order: 'date_added desc',
+      SearchType: 3
+    }
+
+    AlbumService.loadVideo(query, function(res) {
+      $scope.recentAudios = res.data.data.Data;
+    });
+
+  }
+  var loadRecentPhoto = function() {
+    var query = {
+      isDisabled: 1,
+      isApproved: 1,
+      LoadLibrary: false,
+      LoadFavorites: false, // make it true for loading favorited videos
+      LoadLiked: false, // make it true for loading liked videos
+      PageNumber: 1,
+      PageSize: 10,
+      Term: searchtext, // search term if any
+      Categories: '',
+      Tags: '',
+      Order: "added_date desc",
+      SearchType: 3
+    }
+
+    AlbumService.loadPhoto(query, function(res) {
+      $scope.recentPhotos = res.data.data.Data;
+    });
+
+  }
+
+
+
+  loadRecentVideo();
+  loadRecentAudio();
+  loadRecentPhoto();
+
 })
 
 .controller('VideoListCtrl', function($scope, $rootScope, $state) {

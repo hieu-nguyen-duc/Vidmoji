@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
 
 .constant('HOST', 'https://cordialcode.com/app/api/ourpangea/api/') /* ajjenda base url */
 
-.run(function($ionicPlatform, $state, $rootScope, HTTP, $ionicLoading, $localStorage) {
+.run(function($ionicPlatform, $state, $rootScope, HTTP, $ionicLoading, $localStorage, $ionicPopup) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,11 +21,10 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    if($localStorage.User){
+    if ($localStorage.User) {
       $rootScope.User = $localStorage.User;
       $state.go("app.home");
-    }
-    else{
+    } else {
       $state.go("app.login");
     }
   });
@@ -46,9 +45,34 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
 
   $rootScope.searchText = '';
   $rootScope.goSearchPage = function(text) {
+
     $rootScope.searchText = text;
     $state.go('searchresult');
+
   };
+
+  $rootScope.Search = function(e, type) {
+    var text = e.currentTarget.value;
+    var issearch = false;
+    if (type) {
+      issearch = true;
+    }
+    if (e.keyCode == 13) {
+      issearch = true;
+    }
+    if (issearch) {
+      if (!text) {
+        $ionicPopup.alert({
+          title: '',
+          template: 'Please enter keyword'
+        })
+        return;
+      }
+      $rootScope.searchText = text;
+      $state.go('searchresult');
+    }
+  };
+
 
   $rootScope.recentVideos = [1, 2, 3];
 

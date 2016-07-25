@@ -2,14 +2,14 @@
   <ion-content class="padding-7 margin-top-50">
 
     <!--Videos Categories-->
-    <div>
+    <div ng-show="audioCategories">
       <fieldset class="border-orange">
         <legend class="background-orange color-white font-size-15 border-orange text-center">
           Audio Categories
         </legend>
         <div class="margin-top-5">
           <a menu-close class="item menu-icon-color border-transparent categories-item" ng-repeat="category in audioCategories" ng-click="goAudioByCategory(category)">
-            <span class="color-light-black font-size-14">{{category}}</span>
+            <span class="color-light-black font-size-14">{{category.CategoryName}}</span>
           </a>
         </div>
       </fieldset>
@@ -25,7 +25,7 @@
         <div class="margin-bottom-10" ng-repeat="data in recentAudios">
           <div class="card">
             <a href="#/videodetail/{{data.VideoID}}" style="text-decoration:none;">
-              <img class="full-image" src="http://staging.vidmoji.com/contents/member/Administrator/Thumbs/{{data.ThumbFileName}}">
+              <img class="full-image" src="http://staging.vidmoji.com/images/audio02.jpg">
               <div class="padding">
                 <p class="menu-icon-color p-tag-bottom-margin">{{data.Title}}</p>
                 <p class="color-gray p-tag-bottom-margin">{{data.Duration}}</p>

@@ -5,11 +5,11 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="right">
-       <!-- <input ng-if="hideNavBar==true" src="" type="text" style="width: 250px!important;">-->
+
         <div ng-if="hideNavBar==true" style="display: inline-flex;">
           <div class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon font-size-20" ng-click="goSearchPage()"></i>
-            <input type="text" placeholder="Search" style="background-color: transparent;border: transparent;width: 250px!important;">
+            <i class="icon ion-ios-search placeholder-icon font-size-20" ng-click="Search($event,1)"></i>
+            <input ng-keyup="Search($event)" type="search" placeholder="Search" style="background-color: transparent;border: transparent;width: 250px!important;">
             <i class="icon ion-close-circled font-size-20" style="color: red;" ng-click="hideSearchBar()">
             </i>
           </div>
