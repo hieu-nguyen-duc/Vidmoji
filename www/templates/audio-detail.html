@@ -1,9 +1,9 @@
 <ion-view hide-nav-bar="true">
   <ion-content ng-style="{ 'marginTop' : videoHeight }">
     <div class="padding" style="border-bottom: 2px solid #DFDFDF;padding-top: 0;">
-      <p class="color-black font-weight-500 font-size-20">I Miss You</p>
-      <p class="color-gray p-tag-bottom-margin">47 views</p>
-      <p class="color-gray p-tag-bottom-margin">Uploaded on March 31th, 2016 by sssss</p>
+      <p class="color-black font-weight-500 font-size-20">{{AudioDetail.Title}}</p>
+      <p class="color-gray p-tag-bottom-margin">{{AudioDetail.Views}} views</p>
+      <p class="color-gray p-tag-bottom-margin">Uploaded on {{AudioDetail.Date_Added}} by {{AudioDetail.UserName}}</p>
     </div>
 
 
@@ -15,7 +15,7 @@
             <h4 class="font-size-14">My Tags:</h4>
           </div>
           <div>
-            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in tagData"
+            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in AudioDetail.Tags.split(',')"
                style="margin: 5px;font-size: 12px!important;"
                ng-click="(tag); $event.stopPropagation();">{{tag}}<i class="ion-close-round padding-left"></i></a>
           </div>
@@ -28,7 +28,7 @@
             <h4 class="font-size-14">Other Tags:</h4>
           </div>
           <div>
-            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in tagData"
+            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in AudioDetail.UserTags.split(',')"
                style="margin: 5px;font-size: 12px!important;"
                ng-click="(tag); $event.stopPropagation();">{{tag}}</a>
           </div>

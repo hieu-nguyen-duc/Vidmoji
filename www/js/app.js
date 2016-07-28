@@ -241,7 +241,7 @@ angular.module('starter', ['ionic', 'ngStorage', 'starter.controllers', 'ngDisqu
 
   .state('audiodetail', {
     cache: false,
-    url: '/audiodetail',
+    url: '/audiodetail/:videoid',
     templateUrl: 'templates/audio-detail.html',
     controller: 'AudioDetailCtrl'
   })

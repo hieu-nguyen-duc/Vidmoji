@@ -1,9 +1,9 @@
 <ion-view hide-back-button="true" view-title="Home" hide-nav-bar="true">
   <ion-content ng-style="{ 'marginTop' : videoHeight }">
     <div class="padding" style="border-bottom: 2px solid #DFDFDF;padding-top: 0;">
-      <p class="color-black font-weight-500 font-size-20">Good Morning</p>
-      <p class="color-gray p-tag-bottom-margin">47 views</p>
-      <p class="color-gray p-tag-bottom-margin">Uploaded on March 31th, 2016 by sssss</p>
+      <p class="color-black font-weight-500 font-size-20">{{VideoDetail.Title}}</p>
+      <p class="color-gray p-tag-bottom-margin">{{VideoDetail.Views}} views</p>
+      <p class="color-gray p-tag-bottom-margin">Uploaded on {{VideoDetail.Date_Added | date}} by {{VideoDetail.UserName}}</p>
     </div>
 
 
@@ -15,9 +15,7 @@
             <h4 class="font-size-14">My Tags:</h4>
           </div>
           <div>
-            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in tagData"
-               style="margin: 5px;font-size: 12px!important;"
-               ng-click="(tag); $event.stopPropagation();">{{tag}}<i class="ion-close-round padding-left"></i></a>
+            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in VideoDetail.Tags.split(',')" style="margin: 5px;font-size: 12px!important;" ng-click="(tag); $event.stopPropagation();">{{tag}}<i class="ion-close-round padding-left"></i></a>
           </div>
         </div>
       </div>
@@ -28,9 +26,7 @@
             <h4 class="font-size-14">Other Tags:</h4>
           </div>
           <div>
-            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in tagData"
-               style="margin: 5px;font-size: 12px!important;"
-               ng-click="(tag); $event.stopPropagation();">{{tag}}</a>
+            <a class="button tag-button font-size-12 tag-line-min-height" ng-repeat="tag in VideoDetail.UserTags.split(',')" style="margin: 5px;font-size: 12px!important;" ng-click="(tag); $event.stopPropagation();">{{tag}}</a>
           </div>
         </div>
 
@@ -38,7 +34,7 @@
 
 
 
-    <!--  <div class="row" style="margin-left: -8px">
+      <!--  <div class="row" style="margin-left: -8px">
         <div class="col col-50">
           <input style="padding-left: 5px" type="text" class="form-control" id="txtatag" placeholder="Add A Tag">
         </div>
@@ -48,7 +44,7 @@
       </div>-->
 
       <label class="item item-input padding-0 padding-left border-orange" style="border-radius: 4px;">
-        <input type="text" placeholder="Add A Tag" class="transparent-border" style="padding-left: 10px;" >
+        <input type="text" placeholder="Add A Tag" class="transparent-border" style="padding-left: 10px;">
         <i class="button button-clear see-all-button line-min-height placeholder-icon floating-label-color border-radius-0 font-size-12">Add A Tag</i>
       </label>
 
@@ -56,7 +52,7 @@
     </div>
 
     <div class="padding" style="border-bottom: 2px solid #DFDFDF;">
-      <span class="icon color-black font-weight-500 font-size-15" style="padding-bottom: 0!important;" >{{commentData.length}} Comments</span>
+      <span class="icon color-black font-weight-500 font-size-15" style="padding-bottom: 0!important;">{{commentData.length}} Comments</span>
       <span class="icon color-gray font-weight-500 font-size-15 padding-left-20" style="padding-bottom: 0!important;" ng-click="openModal()">Vidmoji</span>
     </div>
     <div class="row">
@@ -84,14 +80,10 @@
 
     <ion-list>
       <div class="padding" ng-repeat="group in aboutGroups">
-        <ion-item class="expand-item-font-size"
-                  ng-click="toggleGroup(group)"
-                  ng-class="{active: isGroupShown(group)}" style="padding: 0;">
+        <ion-item class="expand-item-font-size" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}" style="padding: 0;">
           <input type="text" placeholder="Start the discussion…" class="width-100 comment-input">
         </ion-item>
-        <ion-item class="item-accordion"
-                  ng-repeat="item in group.items"
-                  ng-show="isGroupShown(group)">
+        <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
           <div>
 
             <i class="ion-image"></i>
@@ -132,7 +124,7 @@
         <div class="width-100 background-orange text-center color-white padding font-size-15">Recent Photos</div>
         <div class="padding" ng-repeat="data in recentVideos">
           <div class="card">
-            <div  ng-click="goPhotoDetail()">
+            <div ng-click="goPhotoDetail()">
               <img class="full-image" src="img/dummy_photo.png">
               <div class="padding">
                 <p class="menu-icon-color p-tag-bottom-margin">Today was good</p>
@@ -179,15 +171,12 @@
     </div>
 
 
-   <!-- <div class="padding" style="padding-top: 0;">
+    <!-- <div class="padding" style="padding-top: 0;">
       <input type="text" placeholder="Start the discussion…" class="width-100 comment-input">
     </div>-->
 
 
-
-
   </ion-content>
-
   <div id="mainVideoNew">
     <div class="padding-5 row">
       <i class="ion-android-arrow-dropleft-circle floating-label-color font-size-20 padding-top-8" style="padding-right: 2px;"></i>
@@ -197,11 +186,8 @@
       <i class="ion-android-arrow-dropright-circle font-size-20 floating-label-color padding-top-8" style="padding-left: 2px;"></i>
     </div>
     <!--autoplay="autoplay"-->
-    <video id="detailVideo" poster="img/dummy_video.png" preload="metadata"
-           webkit-playsinline="webkit-playsinline" class="videoPlayer" ng-click="playPause()">
-      <source src="http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4"
-              type="video/mp4"/>
-      Your browser does not support this video player.
+          <video id="detailVideo" ng-poster="http://staging.vidmoji.com/contents/member/{{VideoDetail.UserName}}/Thumbs/{{VideoDetail.ThumbFileName}}" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer" ng-click="playPause()">
+      <source src="http://staging.vidmoji.com/contents/member/{{VideoDetail.UserName}}/flv/{{VideoDetail.OriginalVideoFileName}}" type="video/mp4" /> Your browser does not support this video player.
     </video>
     <!-- Video Controls -->
     <div ng-show="showControlBar==true" id="video-controls" class="row margin-bottom-10" style="background-color: black;margin-top: -40px;opacity: 0.7;">
@@ -223,11 +209,13 @@
     </div>
     <div class="row">
       <div class="text-center background-black padding">
-        <i class="ion-thumbsup menu-icon-color"></i><br>
+        <i class="ion-thumbsup menu-icon-color"></i>
+        <br>
         <span class="menu-icon-color">200</span>
       </div>
       <div class="text-center background-black padding margin-left-5">
-        <i class="ion-thumbsdown menu-icon-color"></i><br>
+        <i class="ion-thumbsdown menu-icon-color"></i>
+        <br>
         <span class="menu-icon-color">50</span>
       </div>
       <div class="text-center background-black padding margin-left-5">
@@ -242,5 +230,4 @@
     </div>
 
   </div>
-
 </ion-view>

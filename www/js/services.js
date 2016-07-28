@@ -239,6 +239,53 @@ angular.module('starter.services', [])
   }
 
 
+  service.getdetailaudio = function(audioid, callback) {
+    $http.post("http://staging.vidmoji.com/api/videos/process.ashx?action=fetch_record&vid=" + audioid, {}).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
+
+    });
+  }
+
+  service.getdetailphoto = function(imageid, callback) {
+    $http.post("http://staging.vidmoji.com/api/videos/process.ashx?action=fetch_record&vid=" + imageid, {}).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
+
+    });
+  }
+
+  service.getdetailvideo = function(videoid, callback) {
+    $http.post("http://staging.vidmoji.com/api/videos/process.ashx?action=fetch_record&vid=" + videoid, {}).then(function(res) {
+      callback(res);
+      console.log(res);
+    }, function(error) {
+      var data = {
+        status: 'error',
+        message: 'Can not connect server. Please try again',
+        role: ''
+      }
+      callback(data);
+      console.log(error);
+
+    });
+  }
 
   return service;
 })

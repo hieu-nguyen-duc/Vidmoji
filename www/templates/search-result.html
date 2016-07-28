@@ -78,11 +78,10 @@
           </div>
           <div class="padding" ng-repeat="data in recentPhotos">
             <div class="card">
-              <a href="#/photodetail/{{data.photoID}}" style="text-decoration:none;">
-                <img class="full-image" src="http://staging.vidmoji.com/contents/member/{{data.UserName}}/Thumbs/{{data.ThumbFileName}}">
+              <a href="#/photodetail/{{data.ImageID}}" style="text-decoration:none;">
+                <img class="full-image" src="http://staging.vidmoji.com/contents/member/{{data.UserName}}/photos/Thumbs/{{data.FileName}}">
                 <div class="padding">
-                  <p class="menu-icon-color p-tag-bottom-margin">{{data.Title}}</p>
-                  <p class="color-gray p-tag-bottom-margin">{{data.Duration}}</p>
+                  <p class="menu-icon-color p-tag-bottom-margin">{{data.Caption}}</p>
                   <p class="color-gray p-tag-bottom-margin">{{data.Views }} views</p>
                   <p class="menu-icon-color p-tag-bottom-margin">{{data.UserName}}</p>
                 </div>

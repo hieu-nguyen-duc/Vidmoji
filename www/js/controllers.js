@@ -563,10 +563,16 @@ angular.module('starter.controllers', [])
   $scope.switchTab(1);
 })
 
-.controller('VideoDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicLoading, HTTP, $ionicModal, $ionicScrollDelegate, $rootScope, $state, $timeout) {
+.controller('VideoDetailCtrl', function($scope, $ionicSideMenuDelegate,
+  $ionicLoading, HTTP, $ionicModal, $ionicScrollDelegate, $rootScope, $state, $timeout, AlbumService, $stateParams) {
 
+  var videoid = $stateParams.videoid;
 
+  AlbumService.getdetailvideo(videoid, function(res) {
 
+    $scope.VideoDetail = res.data.data.Data[0];
+
+  });
 
   $rootScope.hideNavBar = false;
   $scope.showControlBar = true;
@@ -754,11 +760,19 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('AudioDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $rootScope, $state, $timeout) {
+.controller('AudioDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $rootScope, $state, $timeout, AlbumService, $stateParams) {
   $rootScope.hideNavBar = false;
   $scope.showControlBar = true;
   $ionicSideMenuDelegate.canDragContent(false);
 
+
+  var audioid = $stateParams.videoid;
+
+  AlbumService.getdetailaudio(audioid, function(res) {
+
+    $scope.AudioDetail = res.data.data.Data[0];
+
+  });
   $rootScope.getComments();
 
   $scope.openBrowser = function(url) {
@@ -929,12 +943,24 @@ angular.module('starter.controllers', [])
     video.volume = volumeBar.value;
   });
 
+
+
+
 })
 
-.controller('PhotoDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $rootScope, $state) {
+.controller('PhotoDetailCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
+  $rootScope, $state, AlbumService, $stateParams) {
   $rootScope.hideNavBar = false;
   $ionicSideMenuDelegate.canDragContent(false);
 
+
+  var audioid = $stateParams.videoid;
+
+  AlbumService.getdetailphoto(audioid, function(res) {
+
+    $scope.PhotoDetail = res.data.data.Data[0];
+
+  });
   $rootScope.getComments();
 
   $scope.openBrowser = function(url) {
@@ -999,6 +1025,9 @@ angular.module('starter.controllers', [])
   $scope.isGroupShown = function(group) {
     return $scope.shownGroup === group;
   };
+
+
+
 
 })
 
